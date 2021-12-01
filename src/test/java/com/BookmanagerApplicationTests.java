@@ -8,6 +8,7 @@ class BookmanagerApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println("hot_fix分支进行修改");
     }
 
 }
