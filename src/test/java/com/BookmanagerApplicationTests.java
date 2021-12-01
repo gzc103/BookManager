@@ -10,6 +10,7 @@ class BookmanagerApplicationTests {
     void contextLoads() {
         System.out.println("hot_fix分支进行修改");
         System.out.println("主分支冲突");
+        System.out.println("hot_fix冲突");
     }
 
 }
