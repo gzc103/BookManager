@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.InfoMapper" >
+  <insert id="insert" parameterType="com.bean.Info" >
+    insert into book_info 
+    values (#{bookId},#{bookCode},#{bookName},#{bookType},#{bookAuthor},#{publishPress},#{ublishDate},#{borrowed},#{createdBy},#{creationTime},#{lastUpdatetime})
+  </insert>
+  <delete id="delete">
+    delete from book_info
+    where bookId = #{id}
+  </delete>
+  <update id="update" parameterType="com.bean.Info" >
+    update book_info
+    set bookCode=#{bookCode},bookName=#{bookName},bookType=#{bookType},bookAuthor=#{bookAuthor},publishPress=#{publishPress},borrowed=#{borrowed},createdBy=#{createdBy},creationTime=#{creationTime}
+    where bookId = #{bookId}
+  </update>
+  <select id="selectByPrimaryKey" resultType="map">
+    select i.*,t.typeName from book_info i,book_type t
+    where i.bookType=t.id and bookId = #{id}
+  </select>
+  <select id="findAll" resultType="map">
+  	SELECT * from book_info
+  </select>
+  <select id="selectCount" resultType="int">
+  	SELECT count(1) from book_info
+  </select>
+  <select id="findByName" parameterType="String" resultType="map">
+	select i.*,t.typeName from book_info i,book_type t where i.bookType=t.id and bookName like concat('%',#{name},'%')
+  </select>
+	<select id="selectAll" parameterType="com.bean.Page" resultType="map">
+	SELECT i.*,t.`typeName` FROM book_info i,book_type t WHERE i.`bookType`=t.`id` LIMIT #{pagePre},#{pageSize}
+  </select>
+  <select id="findCount" resultType="Integer">
+    select count(*) from book_info;
+  </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+# mysql
+spring:
+  datasource:
+    #MySQL配置
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/books?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 103
+
+#mybatis配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.dao
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#设置端口号
+server:
+  port: 7070
+
+
