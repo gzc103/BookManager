@@ -9,6 +9,7 @@ class BookmanagerApplicationTests {
     @Test
     void contextLoads() {
         System.out.println("idea push");
+	System.out.println("gzc102 push");
     }
 
 }
