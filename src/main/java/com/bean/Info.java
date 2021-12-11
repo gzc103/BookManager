@@ -3,13 +3,21 @@ package com.bean;
 import java.util.Date;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 @Component
+@Api("图书类")
+//@ApiModel("图书类")
 public class Info{
+	@ApiModelProperty(value = "图书id")
 	private Integer bookId;
+	@ApiModelProperty("图书编号")
 	private String bookCode;
+	@ApiModelProperty("图书名称")
 	private String bookName;
 	private Integer bookType;
 	private String bookAuthor;

@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import com.alibaba.fastjson.JSON;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +27,9 @@ public class BookInfoController {
     private InfoService isrv;
 
     //修改图书
-    @RequestMapping("/update")
+    @ApiOperation("修改图书")  //给接口加注释
+    @PostMapping("/update")
+    //@ApiParam给参数加注释
     public String updateInfo(Info info) {
 //		info.setLastUpdatetime(new Date());
         int re = isrv.update(info);
@@ -37,7 +41,8 @@ public class BookInfoController {
     }
 
     //新增图书
-    @RequestMapping("/add")
+    @ApiOperation("新增图书")
+    @PostMapping("/add")
     public String addInfo(Info info) {
         info.setUblishDate(new Date());
         int re = isrv.insert(info);
@@ -49,8 +54,9 @@ public class BookInfoController {
     }
 
     //按id删除
-    @RequestMapping(value = "/delete")
-    public String deleteById(int id) {
+    @ApiOperation("按id删除图书")
+    @GetMapping(value = "/delete")
+    public String deleteById(@ApiParam("图书id") int id) {
         int re = isrv.delete(id);
         if (re > 0) {
             return "OK";
@@ -60,21 +66,26 @@ public class BookInfoController {
     }
 
     //按id查询
-    @RequestMapping(value = "/findById")
-    public Map<String, Object> findById(int id) {
+    @ApiOperation("按id查询图书")
+    @GetMapping(value = "/findById")
+    public Map<String, Object> findById(@ApiParam("图书id") int id) {
         Map<String, Object> info = isrv.selectByPrimaryKey(id);
+        if(info==null)
+            return null;
         info.put("borrowed", ((Integer) info.get("borrowed") == 1 ? "已借阅" : "未借阅"));
         return info;
     }
 
-    @RequestMapping("/hello")
+    @ApiOperation("访问则返回hello")
+    @GetMapping("/hello")
     public String hello() {
         return "hello";
     }
 
     //分页查询
-    @RequestMapping("/selectAll")
-    public String findAll(Integer pageIndex) {
+    @ApiOperation("分页查询所有图书")
+    @GetMapping("/selectAll")
+    public String findAll(@ApiParam("当前页") Integer pageIndex) {
         Page page = new Page();
         page.setPageIndex(pageIndex);
         page.setPageSize(3);
@@ -91,9 +102,9 @@ public class BookInfoController {
     }
 
     //按名称查询
-    @ResponseBody
-    @RequestMapping(value = "/findByName", method = RequestMethod.POST)
-    public String findByName(@Param("name") String name) {
+    @ApiOperation("按名称查询图书")
+    @GetMapping(value = "/findByName")
+    public String findByName(@ApiParam("图书名称") @Param("name") String name) {
         List<Map<String, Object>> list = isrv.findByName(name);
         //修改借阅
         for (Map<String, Object> info : list) {
